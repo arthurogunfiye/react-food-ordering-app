@@ -23,7 +23,7 @@ const Meals = () => {
   }, [baseUrl]);
 
   return (
-    <div id='meals'>
+    <ul id='meals'>
       {fetchedMeals.map(meal => {
         const { id, name, price, description, image } = meal;
         return (
@@ -36,7 +36,7 @@ const Meals = () => {
           />
         );
       })}
-    </div>
+    </ul>
   );
 };
 
