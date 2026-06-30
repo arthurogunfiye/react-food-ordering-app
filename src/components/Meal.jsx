@@ -5,7 +5,9 @@ const Meal = ({ name, price, description, img }) => {
       <h3>{name}</h3>
       <p className='meal-item-price'>£{price}</p>
       <p className='meal-item-description'>{description}</p>
-      <button>Add to Cart</button>
+      <div className='meal-item-actions'>
+        <button type='button'>Add to Cart</button>
+      </div>
     </div>
   );
 };

@@ -3,17 +3,24 @@ import Meal from './Meal';
 
 const Meals = () => {
   const [fetchedMeals, setFetchedMeals] = useState([]);
+  const baseUrl = 'http://localhost:3000';
 
   useEffect(() => {
     const fetchMeals = async () => {
-      const response = await fetch('http://localhost:3000/meals');
-      if (!response.ok) return;
-      const meals = await response.json();
-      setFetchedMeals(meals);
+      try {
+        const response = await fetch(`${baseUrl}/meals`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch meals: (HTTP ${response.status})`);
+        }
+        const meals = await response.json();
+        setFetchedMeals(meals);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchMeals();
-  }, []);
+  }, [baseUrl]);
 
   return (
     <div id='meals'>
@@ -21,11 +28,11 @@ const Meals = () => {
         const { id, name, price, description, image } = meal;
         return (
           <Meal
-            key={meal.id}
+            key={id}
             name={name}
             price={price}
             description={description}
-            img={`http://localhost:3000/${image}`}
+            img={`${baseUrl}/${image}`}
           />
         );
       })}
