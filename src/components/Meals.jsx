@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import Meal from './Meal';
+import { BASE_URL } from '../constants';
 
 const Meals = () => {
   const [fetchedMeals, setFetchedMeals] = useState([]);
-  const baseUrl = 'http://localhost:3000';
 
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const response = await fetch(`${baseUrl}/meals`);
+        const response = await fetch(`${BASE_URL}/meals`);
         if (!response.ok) {
           throw new Error(`Failed to fetch meals: (HTTP ${response.status})`);
         }
@@ -20,21 +20,12 @@ const Meals = () => {
     };
 
     fetchMeals();
-  }, [baseUrl]);
+  }, []);
 
   return (
     <ul id='meals'>
       {fetchedMeals.map(meal => {
-        const { id, name, price, description, image } = meal;
-        return (
-          <Meal
-            key={id}
-            name={name}
-            price={price}
-            description={description}
-            img={`${baseUrl}/${image}`}
-          />
-        );
+        return <Meal key={meal.id} meal={meal} />;
       })}
     </ul>
   );
