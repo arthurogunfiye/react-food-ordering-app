@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import currencyFormatter from '../utils/formatting';
 import Button from './Button';
 import CartContext from '../store/CartContext';
+import { BASE_URL } from '../constants';
 
 const Meal = ({ meal }) => {
   const cartCtx = useContext(CartContext);
@@ -13,7 +14,7 @@ const Meal = ({ meal }) => {
   return (
     <li className='meal-item'>
       <article>
-        <img src={`http://localhost:3000/${meal.image}`} alt={meal.name} />
+        <img src={`${BASE_URL}/${meal.image}`} alt={meal.name} />
         <div>
           <h3>{meal.name}</h3>
           <p className='meal-item-price'>

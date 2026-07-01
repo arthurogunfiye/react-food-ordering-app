@@ -33,6 +33,10 @@ const cartReducer = (state, action) => {
       item => item.id === action.id
     );
 
+    if (existingCartItemIndex === -1) {
+      return state;
+    }
+
     const existingCartItem = state.items[existingCartItemIndex];
 
     const updatedItems = [...state.items];

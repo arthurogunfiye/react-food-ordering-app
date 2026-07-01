@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Meal from './Meal';
+import { BASE_URL } from '../constants';
 
 const Meals = () => {
   const [fetchedMeals, setFetchedMeals] = useState([]);
@@ -7,7 +8,7 @@ const Meals = () => {
   useEffect(() => {
     const fetchMeals = async () => {
       try {
-        const response = await fetch('http://localhost:3000/meals');
+        const response = await fetch(`${BASE_URL}/meals`);
         if (!response.ok) {
           throw new Error(`Failed to fetch meals: (HTTP ${response.status})`);
         }
