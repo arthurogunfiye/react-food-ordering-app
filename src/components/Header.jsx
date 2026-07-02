@@ -6,9 +6,7 @@ import Button from './Button';
 const Header = () => {
   const cartCtx = useContext(CartContext);
 
-  const totalCartItems = cartCtx.items.reduce((totalNumberOfItems, item) => {
-    return totalNumberOfItems + item.quantity;
-  }, 0);
+  const totalCartItems = cartCtx.getCartItemCount();
 
   return (
     <header id='main-header'>
