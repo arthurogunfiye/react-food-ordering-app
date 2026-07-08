@@ -5,7 +5,7 @@ const CartItem = ({ name, quantity, price, onIncrease, onDecrease }) => {
     <li className='cart-item'>
       <p>
         {name} - {quantity} x {currencyFormatter.format(price)} ={' '}
-        {Number(quantity) * Number(price).toFixed(2)}
+        {currencyFormatter.format(price * quantity)}
       </p>
       <p className='cart-item-actions'>
         <button onClick={onDecrease}>-</button>
