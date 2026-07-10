@@ -8,11 +8,13 @@ const Modal = ({ children, open, onClose, className = '' }) => {
     const modal = dialog.current;
 
     if (open) {
-      modal.showModal();
+      if (!modal.open) modal.showModal();
     }
 
     // Clean up function
-    return () => modal.close();
+    return () => {
+      if (modal.open) modal.close();
+    };
   }, [open]);
 
   return createPortal(
