@@ -23,7 +23,7 @@ const Checkout = () => {
         userProgressCtx.progress === 'checkout' ? handleCloseCheckout : null
       }
     >
-      <form action=''>
+      <form onSubmit={event => event.preventDefault()}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
         <Input label='Full Name' type='text' id='full-name' />
