@@ -5,6 +5,7 @@ import currencyFormatter from '../utils/formatting';
 import Button from './Button';
 import Input from './Input';
 import Modal from './Modal';
+import { BASE_URL } from '../constants';
 
 const Checkout = () => {
   const cartCtx = useContext(CartContext);
@@ -16,6 +17,32 @@ const Checkout = () => {
     userProgressCtx.hideCheckout();
   };
 
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const customerData = Object.fromEntries(formData.entries());
+
+    const response = await fetch(`${BASE_URL}/orders`, {
+      method: 'POST',
+      body: JSON.stringify({
+        order: {
+          items: cartCtx.items,
+          customer: customerData
+        }
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Unable to submit order: HTTP error! Status: ${response.status}`
+      );
+    }
+  };
+
   return (
     <Modal
       open={userProgressCtx.progress === 'checkout'}
@@ -23,10 +50,10 @@ const Checkout = () => {
         userProgressCtx.progress === 'checkout' ? handleCloseCheckout : null
       }
     >
-      <form onSubmit={event => event.preventDefault()}>
+      <form onSubmit={handleSubmit}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
-        <Input label='Full Name' type='text' id='full-name' />
+        <Input label='Full Name' type='text' id='name' />
         <Input label='Email Address' type='email' id='email' />
         <Input label='Street' type='text' id='street' />
         <div className='control-row'>
