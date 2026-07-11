@@ -23,23 +23,30 @@ const Checkout = () => {
     const formData = new FormData(event.target);
     const customerData = Object.fromEntries(formData.entries());
 
-    const response = await fetch(`${BASE_URL}/orders`, {
-      method: 'POST',
-      body: JSON.stringify({
-        order: {
-          items: cartCtx.items,
-          customer: customerData
+    try {
+      const response = await fetch(`${BASE_URL}/orders`, {
+        method: 'POST',
+        body: JSON.stringify({
+          order: {
+            items: cartCtx.items,
+            customer: customerData
+          }
+        }),
+        headers: {
+          'Content-Type': 'application/json'
         }
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
+      });
 
-    if (!response.ok) {
-      throw new Error(
-        `Unable to submit order: HTTP error! Status: ${response.status}`
-      );
+      if (!response.ok) {
+        throw new Error(
+          `Unable to submit order: HTTP error! Status: ${response.status}`
+        );
+      }
+
+      cartCtx.clearCart();
+      userProgressCtx.hideCheckout();
+    } catch (error) {
+      console.error(`Unable to submit order: ${error}`);
     }
   };
 
