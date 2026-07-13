@@ -38,7 +38,7 @@ const Checkout = () => {
     clearData();
   };
 
-  const checkoutAction = async (prevState, formData) => {
+  const checkoutAction = async (_prevState, formData) => {
     const customerData = Object.fromEntries(formData.entries());
 
     await sendRequest(
@@ -51,7 +51,7 @@ const Checkout = () => {
     );
   };
 
-  const [formState, formAction, isSendingOrderRequest] = useActionState(
+  const [formAction, isSendingOrderRequest] = useActionState(
     checkoutAction,
     null
   );

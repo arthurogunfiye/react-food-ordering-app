@@ -22,9 +22,6 @@ app.get('/meals', async (req, res) => {
 app.post('/orders', async (req, res) => {
   const orderData = req.body.order;
 
-  // Simulate a 3sec delay
-  await new Promise(resolve => setTimeout(resolve, 3000));
-
   if (!orderData || !orderData.items || orderData.items.length === 0) {
     return res.status(400).json({ message: 'Missing data.' });
   }
