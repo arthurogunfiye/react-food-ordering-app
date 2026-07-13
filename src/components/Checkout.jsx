@@ -32,6 +32,7 @@ const Checkout = () => {
 
   const handleCloseCheckout = () => {
     userProgressCtx.hideCheckout();
+    clearData();
   };
 
   const handleFinishTransaction = () => {
@@ -40,7 +41,7 @@ const Checkout = () => {
     clearData();
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
     const formData = new FormData(event.target);
@@ -58,7 +59,7 @@ const Checkout = () => {
 
   let actions = (
     <>
-      <Button type='button' textOnly onClick={handleCloseCheckout}>
+      <Button type='button' textOnly onClick={handleCloseCheckout()}>
         Close
       </Button>
       <Button>Submit Order</Button>
