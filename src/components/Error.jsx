@@ -1,6 +1,6 @@
 const Error = ({ title, message }) => {
   return (
-    <div className='error'>
+    <div className='error' role='alert'>
       <h2>{title}</h2>
       <p>{message}</p>
     </div>

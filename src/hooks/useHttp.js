@@ -15,19 +15,21 @@ async function sendHttpRequest(url, config) {
 
 export default function useHttp(url, config, initialData) {
   const [data, setData] = useState(initialData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(config?.method === 'GET');
+  const [error, setError] = useState(null);
 
   const sendRequest = useCallback(
     async function sendRequest() {
       setIsLoading(true);
+      setError(null);
       try {
         const resData = await sendHttpRequest(url, config);
         setData(resData);
       } catch (error) {
         setError(error.message || 'Something went wrong!');
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     },
     [url, config]
   );
